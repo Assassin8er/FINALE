@@ -85,6 +85,18 @@
 /processorParam:Quality=Best
 /build:RocketLaunch.wav
 
+#begin Ship.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Ship.png
+
 #begin shot.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -109,7 +121,7 @@
 /processorParam:TextureFormat=Color
 /build:Space Ships Explosion.png
 
-#begin Space.png
+#begin Space0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -119,7 +131,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Space.png
+/build:Space0.png
+
+#begin Space1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Space1.png
 
 #begin Space2.png
 /importer:TextureImporter
@@ -144,16 +168,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Space3.png
-
-#begin Spaceship_01_BLUE.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Spaceship_01_BLUE.png
 
