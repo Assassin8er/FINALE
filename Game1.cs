@@ -9,11 +9,14 @@ namespace FinalProject
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        KeyboardState keyboardState;
+
         Texture2D asteroidTexture, flame1Texture, flame2Texture, shipTexture, backroundTexture, shotTexture, spaceTexture;
         Rectangle asteroidRect, shipRect, shotRect, rocketRect, flame1Rect, flame2Rect;
-        Vector2 bulletspeed, asteroidSpeed, shipSpeed, rocketSpeed, flame1Speed, flame2Speed;
         SoundEffect Kaboom, Bam, Pew, Launch;
         SoundEffectInstance kaboomInstance, pewInstance, bamInstance, launchInstance;
+        int shipSpeed;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -26,6 +29,12 @@ namespace FinalProject
             // TODO: Add your initialization logic here
             _graphics.PreferredBackBufferWidth = 1200; // Sets the width of the window
             _graphics.PreferredBackBufferHeight = 800; // Sets the height of the window
+
+            shipRect = new Rectangle(70, 350, 120, 130);
+            shipSpeed = 6;
+
+
+
             _graphics.ApplyChanges(); // Applies the new dimensions
             base.Initialize();
         }
@@ -51,9 +60,31 @@ namespace FinalProject
 
         protected override void Update(GameTime gameTime)
         {
+            keyboardState = Keyboard.GetState();
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (keyboardState.IsKeyDown(Keys.Up))
+            {
+                shipRect.Y -= shipSpeed;
+            }
+            if (keyboardState.IsKeyDown(Keys.Down))
+            {
+                shipRect.Y += shipSpeed;
+            }
+
+            if (shipRect.Y > 800 - shipRect.Height)
+            {
+                shipRect.Y = 800- shipRect.Height;
+
+            }
+
+            if (shipRect.Y < 0)
+            {
+                shipRect.Y = 0;
+
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -65,7 +96,7 @@ namespace FinalProject
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _spriteBatch.Draw(spaceTexture, new Rectangle(0, 0, 1200, 800), Color.White);
-
+            _spriteBatch.Draw(shipTexture, shipRect, Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
