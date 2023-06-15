@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace FinalProject
 {
@@ -16,6 +17,8 @@ namespace FinalProject
         Rectangle asteroidRect, shipRect, shotRect, rocketRect, flame1Rect, flame2Rect;
         SoundEffect Kaboom, Bam, Pew, Launch;
         SoundEffectInstance kaboomInstance, pewInstance, bamInstance, launchInstance;
+
+        List<Bullet> bulletList = new List<Bullet>();
         int shipSpeed;
         public Game1()
         {
@@ -46,7 +49,7 @@ namespace FinalProject
             shipTexture = Content.Load<Texture2D>("Ship");
             flame1Texture = Content.Load<Texture2D>("Flame1");
             flame2Texture = Content.Load<Texture2D>("Flame2");
-            shotTexture = Content.Load<Texture2D>("shot");
+            shotTexture = Content.Load<Texture2D>("bullet");
             spaceTexture = Content.Load<Texture2D>("Space0");
 
             Kaboom = Content.Load<SoundEffect>("Kaboom");
@@ -73,17 +76,23 @@ namespace FinalProject
             {
                 shipRect.Y += shipSpeed;
             }
+            if (keyboardState.IsKeyDown(Keys.Space))
+            {
+                bulletList.Add( new Bullet(shotTexture, new Rectangle(shipRect.Right, shipRect.Y +shipRect.Height/2, 5, 5), 10));
+            }
 
             if (shipRect.Y > 800 - shipRect.Height)
             {
                 shipRect.Y = 800- shipRect.Height;
-
             }
 
             if (shipRect.Y < 0)
             {
                 shipRect.Y = 0;
-
+            }
+            foreach (Bullet bullet in bulletList)
+            {
+                bullet.Update();
             }
             // TODO: Add your update logic here
 
@@ -97,6 +106,10 @@ namespace FinalProject
             _spriteBatch.Begin();
             _spriteBatch.Draw(spaceTexture, new Rectangle(0, 0, 1200, 800), Color.White);
             _spriteBatch.Draw(shipTexture, shipRect, Color.White);
+            foreach(Bullet bullet in bulletList)
+            {
+                bullet.DrawBullet(_spriteBatch);
+            }
             _spriteBatch.End();
 
             base.Draw(gameTime);
