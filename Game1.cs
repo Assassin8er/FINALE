@@ -17,7 +17,7 @@ namespace FinalProject
         Rectangle asteroidRect, shipRect, shotRect, rocketRect, flame1Rect, flame2Rect;
         SoundEffect Kaboom, Bam, Pew, Launch;
         SoundEffectInstance kaboomInstance, pewInstance, bamInstance, launchInstance;
-
+        
         List<Bullet> bulletList = new List<Bullet>();
         int shipSpeed;
         public Game1()
@@ -35,7 +35,7 @@ namespace FinalProject
 
             shipRect = new Rectangle(70, 350, 120, 130);
             shipSpeed = 6;
-
+            flame1Rect = new Rectangle(54, 406, 40, 16);
 
 
             _graphics.ApplyChanges(); // Applies the new dimensions
@@ -44,6 +44,7 @@ namespace FinalProject
 
         protected override void LoadContent()
         {
+            //Loading Content
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             shipTexture = Content.Load<Texture2D>("Ship");
@@ -56,31 +57,33 @@ namespace FinalProject
             Pew = Content.Load<SoundEffect>("Pew");
             Bam = Content.Load<SoundEffect>("Bam");
             Launch = Content.Load<SoundEffect>("RocketLaunch");
-
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
             keyboardState = Keyboard.GetState();
 
+            //KEYS
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             if (keyboardState.IsKeyDown(Keys.Up))
             {
                 shipRect.Y -= shipSpeed;
+                flame1Rect.Y -= shipSpeed;
             }
             if (keyboardState.IsKeyDown(Keys.Down))
             {
                 shipRect.Y += shipSpeed;
+                flame1Rect.Y += shipSpeed;
             }
             if (keyboardState.IsKeyDown(Keys.Space))
             {
                 bulletList.Add( new Bullet(shotTexture, new Rectangle(shipRect.Right, shipRect.Y +shipRect.Height/2, 5, 5), 10));
             }
 
+
+            //Ship barrier
             if (shipRect.Y > 800 - shipRect.Height)
             {
                 shipRect.Y = 800- shipRect.Height;
@@ -90,13 +93,35 @@ namespace FinalProject
             {
                 shipRect.Y = 0;
             }
-            foreach (Bullet bullet in bulletList)
-            {
-                bullet.Update();
-            }
-            // TODO: Add your update logic here
 
-            base.Update(gameTime);
+            //Bullets
+            foreach (Bullet bullet in bulletList)
+            {                
+                bullet.Update();   
+            }
+
+            //Removing Bullets
+            for (int i = bulletList.Count - 1; i >= 0; i--)
+            {
+                Bullet bullet = bulletList[i];
+
+                if ( bullet.GetX > 1200)
+                {
+                    bulletList.RemoveAt(i);
+                    break;
+                }
+            }
+            //Flames
+            if (flame1Rect.Y > 742 - flame1Rect.Height)
+            {
+                flame1Rect.Y = 742 - flame1Rect.Height;
+            }
+
+            if (flame1Rect.Y < 57)
+            {
+                flame1Rect.Y = 57;
+            }
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -106,6 +131,7 @@ namespace FinalProject
             _spriteBatch.Begin();
             _spriteBatch.Draw(spaceTexture, new Rectangle(0, 0, 1200, 800), Color.White);
             _spriteBatch.Draw(shipTexture, shipRect, Color.White);
+            _spriteBatch.Draw(flame1Texture, flame1Rect, Color.White);
             foreach(Bullet bullet in bulletList)
             {
                 bullet.DrawBullet(_spriteBatch);
