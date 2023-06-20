@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    internal class ROCK
+    internal class asteroid
     {
         Texture2D _texture;
         Rectangle _rect;
         float _speed;
-        public ROCK(Texture2D texture, Rectangle rect, int speed)
+        public asteroid(Texture2D texture, Rectangle rect, int speed)
         {
             _texture = texture;
             _rect = rect;
