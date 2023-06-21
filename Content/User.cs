@@ -1,34 +1,26 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
-namespace FinalProject
+namespace FinalProject.Content
 {
-    internal class Asteroid
+    internal class User
     {
-
-        Texture2D _texture;
         Rectangle _rect;
+        Texture2D _texture;
         float _speed;
         int _health;
-        public Asteroid(Texture2D texture, Rectangle rect, int speed)
+        public User(Texture2D texture, Rectangle rect, int speed)
         {
             _texture = texture;
             _rect = rect;
             _speed = speed;
-            _health = 12;
+            
         }
-
-        public int Health { 
-            get { return _health; } 
-            set { _health = value; }    
-        }
-       
-
         public int GetX
         {
             get { return _rect.X; }
@@ -45,15 +37,5 @@ namespace FinalProject
         {
             get { return _rect.Height; }
         }
-        public void Update()
-        {
-            //Move bullet right
-            _rect.X -= (int)_speed;
-        }
-        public void DrawAsteroid(SpriteBatch sprite)
-        {
-            sprite.Draw(_texture, _rect, Color.White);
-        }
-
     }
 }

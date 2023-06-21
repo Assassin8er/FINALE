@@ -1,0 +1,56 @@
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+
+namespace FinalProject
+{
+    internal class asteroid
+    {
+        int _health
+        Texture2D _texture;
+        Rectangle _rect;
+        float _speed;
+        public asteroid(Texture2D texture, Rectangle rect, int speed)
+        {
+            _texture = texture;
+            _rect = rect;
+            _speed = speed;
+            _health = health;
+        }
+        public int GetX
+        {
+            get { return _rect.X; }
+        }
+        public void Update()
+        {
+            //Move bullet right
+            _rect.X -= (int)_speed;
+        }
+        public void ZCollide()
+        {
+            _health--; // Decrease the health of the asteroid
+
+            if (_health <= 0)
+            {
+                // The asteroid has been destroyed
+                meteorList.Remove(this);
+            }
+
+
+        }
+        private void SpawnAsteroid()
+        {
+            int yPos = random.Next(57, 742 - asteroidTexture.Height); 
+            Rectangle newAsteroidRect = new Rectangle(1200, yPos, asteroidTexture.Width, asteroidTexture.Height);
+            int initialHealth = 12; // Set the initial health for the asteroid
+            Asteroid newAsteroid = new Asteroid(asteroidTexture, newAsteroidRect, 3, initialHealth);
+            meteorList.Add(newAsteroid);
+        }
+
+    }
+}
