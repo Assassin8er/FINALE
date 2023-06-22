@@ -14,7 +14,7 @@ namespace FinalProject
         Texture2D _texture;
         Rectangle _rect;
         float _speed;
-        public  Bullet(Texture2D texture, Rectangle rect, int speed)
+        public Bullet(Texture2D texture, Rectangle rect, int speed)
         {
             _texture = texture;
             _rect = rect;
@@ -25,6 +25,18 @@ namespace FinalProject
         {
             get { return _rect.X; }
         }
+        public int GetY
+        {
+            get { return _rect.Y; }
+        }
+        public int GetWidth
+        {
+            get { return _rect.Width; }
+        }
+        public int GetHeight
+        {
+            get { return _rect.Height; }
+        }
         public void Update()
         {
             //Move bullet right
@@ -32,7 +44,7 @@ namespace FinalProject
         }
         public void Collide()
         {
-          
+
 
         }
         public void DrawBullet(SpriteBatch sprite)
@@ -40,5 +52,5 @@ namespace FinalProject
             sprite.Draw(_texture, _rect, Color.White);
         }
     }
-   
+
 }
