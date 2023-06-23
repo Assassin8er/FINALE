@@ -48,7 +48,7 @@ namespace FinalProject
             // TODO: Add your initialization logic here
             _graphics.PreferredBackBufferWidth = 1200; // Sets the width of the window
             _graphics.PreferredBackBufferHeight = 800; // Sets the height of the window
-
+            asteroidRect = new Rectangle(700, 350 , 100, 200);
             shipRect = new Rectangle(70, 350, 120, 130);
             shipSpeed = 6;
             flame1Rect = new Rectangle(54, 406, 40, 16);
@@ -67,7 +67,7 @@ namespace FinalProject
             flame1Texture = Content.Load<Texture2D>("Flame1");//flame sprite 1
             flame2Texture = Content.Load<Texture2D>("Flame2");//flame sprite 2
             //Ammo
-            shotTexture = Content.Load<Texture2D>("Bullet");
+            shotTexture = Content.Load<Texture2D>("bullet");
             rocket1Texture = Content.Load<Texture2D>("rocket1");//sprite 2
             rocket2Texture = Content.Load<Texture2D>("rocket2");//launch sprite 1
             //User Explosion sprite
@@ -227,7 +227,41 @@ namespace FinalProject
                 }
             }
 
+                // Check for collision with bullets
+                for (int j = bulletList.Count - 1; j >= 0; j--)
+                {
+                    Bullet bullet = bulletList[j];
+                    if (meteorList[i].GetX <= bullet.GetX + bullet.GetWidth && meteorList[i].GetX + meteorList[i].GetWidth >= bullet.GetX &&
+                        meteorList[i].GetY <= bullet.GetY + bullet.GetHeight && meteorList[i].GetY + meteorList[i].GetHeight >= bullet.GetY)
+                    {
+
+                        bulletList.RemoveAt(j);
+                        meteorList[i].Health -= 1;
+                    }
+                }
+
+                // Check for collision with spaceship
+                if (meteorList[i].GetX <= shipRect.X + shipRect.Width && meteorList[i].GetX + meteorList[i].GetWidth >= shipRect.X &&
+                    meteorList[i].GetY <= shipRect.Y + shipRect.Height && meteorList[i].GetY + meteorList[i].GetHeight >= shipRect.Y)
+                {
+
+                }
+
+                // Remove asteroids when they go off-screen
+                if (meteorList[i].GetX + meteorList[i].GetWidth < 0)
+                {
+                    meteorList.RemoveAt(i);
+                    i--;
+                }
+                // Remove asterooid wth zero health
+                else if (meteorList[i].Health <= 0)
+                {
+                    meteorList.RemoveAt(i);
+                    i--;
+                }
+            }
         }
+    
 
         protected override void Draw(GameTime gameTime)
         {
