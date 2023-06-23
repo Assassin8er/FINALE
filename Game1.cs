@@ -225,7 +225,7 @@ namespace FinalProject
                         i--;
                     }
                 }
-            }
+            
 
                 // Check for collision with bullets
                 for (int j = bulletList.Count - 1; j >= 0; j--)
