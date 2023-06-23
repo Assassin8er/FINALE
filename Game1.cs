@@ -224,40 +224,41 @@ namespace FinalProject
                         meteorList.RemoveAt(i);
                         i--;
                     }
-                }
+                
             
 
-                // Check for collision with bullets
-                for (int j = bulletList.Count - 1; j >= 0; j--)
-                {
-                    Bullet bullet = bulletList[j];
-                    if (meteorList[i].GetX <= bullet.GetX + bullet.GetWidth && meteorList[i].GetX + meteorList[i].GetWidth >= bullet.GetX &&
-                        meteorList[i].GetY <= bullet.GetY + bullet.GetHeight && meteorList[i].GetY + meteorList[i].GetHeight >= bullet.GetY)
+                    // Check for collision with bullets
+                    for (int j = bulletList.Count - 1; j >= 0; j--)
+                    {
+                        Bullet bullet = bulletList[j];
+                        if (meteorList[i].GetX <= bullet.GetX + bullet.GetWidth && meteorList[i].GetX + meteorList[i].GetWidth >= bullet.GetX &&
+                            meteorList[i].GetY <= bullet.GetY + bullet.GetHeight && meteorList[i].GetY + meteorList[i].GetHeight >= bullet.GetY)
+                        {
+
+                            bulletList.RemoveAt(j);
+                            meteorList[i].Health -= 1;
+                        }
+                    }
+
+                    // Check for collision with spaceship
+                    if (meteorList[i].GetX <= shipRect.X + shipRect.Width && meteorList[i].GetX + meteorList[i].GetWidth >= shipRect.X &&
+                        meteorList[i].GetY <= shipRect.Y + shipRect.Height && meteorList[i].GetY + meteorList[i].GetHeight >= shipRect.Y)
                     {
 
-                        bulletList.RemoveAt(j);
-                        meteorList[i].Health -= 1;
                     }
-                }
 
-                // Check for collision with spaceship
-                if (meteorList[i].GetX <= shipRect.X + shipRect.Width && meteorList[i].GetX + meteorList[i].GetWidth >= shipRect.X &&
-                    meteorList[i].GetY <= shipRect.Y + shipRect.Height && meteorList[i].GetY + meteorList[i].GetHeight >= shipRect.Y)
-                {
-
-                }
-
-                // Remove asteroids when they go off-screen
-                if (meteorList[i].GetX + meteorList[i].GetWidth < 0)
-                {
-                    meteorList.RemoveAt(i);
-                    i--;
-                }
-                // Remove asterooid wth zero health
-                else if (meteorList[i].Health <= 0)
-                {
-                    meteorList.RemoveAt(i);
-                    i--;
+                    // Remove asteroids when they go off-screen
+                    if (meteorList[i].GetX + meteorList[i].GetWidth < 0)
+                    {
+                        meteorList.RemoveAt(i);
+                        i--;
+                    }
+                    // Remove asterooid wth zero health
+                    else if (meteorList[i].Health <= 0)
+                    {
+                        meteorList.RemoveAt(i);
+                        i--;
+                    }
                 }
             }
         }

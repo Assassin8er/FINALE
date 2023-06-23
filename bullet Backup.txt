@@ -1,11 +1,10 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
 
 namespace FinalProject
 {
@@ -25,6 +24,18 @@ namespace FinalProject
         public int GetX
         {
             get { return _rect.X; }
+        }
+        public int GetY
+        {
+            get { return _rect.Y; }
+        }
+        public int GetWidth
+        {
+            get { return _rect.Width; }
+        }
+        public int GetHeight
+        {
+            get { return _rect.Height; }
         }
         public void Update()
         {
